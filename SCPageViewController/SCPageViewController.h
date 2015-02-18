@@ -198,6 +198,14 @@
  */
 - (UIViewController *)pageViewController:(SCPageViewController *)pageViewController viewControllerForPageAtIndex:(NSUInteger)pageIndex;
 
+/**
+ * @return YES if the page at the given index is scrollable; otherwise NO.
+ * @param pageViewController The calling PageViewController
+ * @param pageIndex The index of the page
+ *
+ */
+- (BOOL)pageViewController:(SCPageViewController *)pageViewController canScrollOnPageAtIndex:(NSUInteger)pageIndex;
+
 @end
 
 

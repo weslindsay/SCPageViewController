@@ -666,6 +666,17 @@
 
 #pragma mark - UIScrollViewDelegate
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    BOOL canScroll = YES;
+
+    if ([self.delegate respondsToSelector:@selector(pageViewController:canScrollOnPageAtIndex:)]) {
+        canScroll = [self.dataSource pageViewController:self canScrollOnPageAtIndex:self.currentPage];
+    }
+
+    self.scrollView.scrollEnabled = canScroll;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if([self.layouter respondsToSelector:@selector(pageViewController:didNavigateToOffset:)]) {
