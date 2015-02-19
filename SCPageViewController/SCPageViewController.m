@@ -226,6 +226,8 @@
         if(!animated && [self.delegate respondsToSelector:@selector(pageViewController:didNavigateToPageAtIndex:)]) {
             [self.delegate pageViewController:self didNavigateToPageAtIndex:pageIndex];
         }
+
+        self.scrollView.scrollEnabled = YES;
         
         if(completion) {
             completion();
