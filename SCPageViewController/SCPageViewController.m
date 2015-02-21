@@ -34,6 +34,8 @@
 
 @property (nonatomic, assign) BOOL isViewVisible;
 
+@property (nonatomic, assign) BOOL isCurrentlyDecelerating;
+
 @end
 
 @implementation SCPageViewController
@@ -228,11 +230,14 @@
         }
 
         self.scrollView.scrollEnabled = YES;
+        self.isCurrentlyDecelerating = NO;
         
         if(completion) {
             completion();
         }
     };
+
+    self.isCurrentlyDecelerating = YES;
     
     CGRect finalFrame = [self.layouter finalFrameForPageAtIndex:pageIndex inPageViewController:self];
     
@@ -690,6 +695,13 @@
     }
     
     [self tilePages];
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    if (self.isCurrentlyDecelerating) {
+        [scrollView setContentOffset:scrollView.contentOffset animated:YES];
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
